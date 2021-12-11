@@ -2,6 +2,7 @@
 title: "Análise base RAIS"
 description: |
   Essa análise teve como objetivo analisar os salarios na base da RAIS.
+#theme: tema personalizado.css
 author:
   - name: Joan Jesus Amaya
     url: {}
@@ -130,10 +131,10 @@ tabela_medias <- tabela_microdados_vinculos %>%
 
 ggplot(tabela_medias) +
   aes(x=ano, y = media_salario)+
-  geom_col(color="blue", fill="blue")+
+  geom_col(color="blue", fill="black")+
   scale_x_continuous(breaks = 2013:2019)+
   labs(title = " Salario medio por ano",
-       y="Salario medio")+
+       y="Salario medio", x = "Ano")+
   theme_bw()
 
 ```
@@ -261,6 +262,11 @@ tabela_resumo_sexo_raca_cor %>%
   geom_col(position = "dodge")+
   labs(x="raça-cor", y="Salario medio", 
        title = "Salario medio por raça-cor e sexo")+
+  scale_fill_viridis_d()+
   theme_bw()
+
+#mudar tema
+#distill::create_theme("nome") formati .css
 ```
+
 
