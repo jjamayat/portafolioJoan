@@ -184,3 +184,83 @@ ggplotly(
     theme_bw()
 )
 ```
+
+Será que essa mesma conclução permanece quando escolhemos a mediana como medida resumo dos salarios?
+  
+```{r}
+tabela_mediana_uf <- tabela_microdados_vinculos %>% 
+  group_by(sigla_uf) %>% 
+  summarise(mediana_salario_uf = median(valor_remuneracao_media))
+
+ggplotly(
+  tabela_mediana_uf %>% 
+    #reoordenando (função fct_reorder())
+    mutate(sigla_uf=fct_reorder(sigla_uf, mediana_salario_uf)) %>% 
+    ggplot(aes(x=sigla_uf, y=mediana_salario_uf))+
+    geom_col(fill="blue")+
+    coord_flip()+
+    labs(title = "Salário mediano por UFG", x="Unidade da Federação", y="Salario mediano")+
+    theme_bw()
+)
+```
+
+
+### Os salarios variam por sexo?
+
+```{r}
+tabela_resumo_sexo <- tabela_microdados_vinculos %>% 
+  group_by(sexo) %>% 
+  summarise(media_sexo = mean(valor_remuneracao_media),
+            mediana_sexo=median(valor_remuneracao_media))
+
+#1 masculino
+tabela_resumo_sexo %>% 
+  kable() %>%
+  kable_styling(bootstrap_options = "striped", 
+                full_width = T, 
+                font_size = 12)
+```
+
+### Os salários variam por etnia?
+
+```{r}
+tabela_resumo_raca_cor <- tabela_microdados_vinculos %>% 
+  group_by(raca_cor) %>% 
+  summarise(media_raca_cor=mean(valor_remuneracao_media), 
+            mediana_raca_cor= median(valor_remuneracao_media))
+
+tabela_resumo_raca_cor %>% 
+  kable() %>%
+  kable_styling(bootstrap_options = "striped", 
+                full_width = T, 
+                font_size = 12)
+```
+
+### Salarios medios e medianos por raça-cor e sexo
+
+A Tabela seguinte mostra os salarios medios e medianos por raça-cor por cada genero.
+
+```{r}
+tabela_resumo_sexo_raca_cor <- tabela_microdados_vinculos %>% 
+  group_by(sexo, raca_cor) %>% 
+  summarise(media_sexo_raca_cor=mean(valor_remuneracao_media),
+            mediana_sexo_raca_cor=median(valor_remuneracao_media))
+
+tabela_resumo_sexo_raca_cor %>% 
+  kable() %>%
+  kable_styling(bootstrap_options = "striped", 
+                full_width = T, 
+                font_size = 12)
+```
+
+O gráfico mostra a informação da tabela anterior num gráfico. 
+
+```{r}
+tabela_resumo_sexo_raca_cor %>% 
+  ggplot(aes(x= raca_cor,y=media_sexo_raca_cor, fill=sexo))+
+  geom_col(position = "dodge")+
+  labs(x="raça-cor", y="Salario medio", 
+       title = "Salario medio por raça-cor e sexo")+
+  theme_bw()
+```
+
