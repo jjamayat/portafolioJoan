@@ -30,11 +30,16 @@ Vamos utilizar [o datalake da iniciativa base dos dados](https://basedosdados.or
 library(bigrquery)
 library(dplyr)
 
+library(knitr)
+library(kableExtra)
 ```
 
 Abaixo esta o codigo que carrega as primeiras 5 linhas da tabela microdados.
 
 ```{r}
+#autenticacao
+#bigrquery::bq_auth("jjamayat@ime.usp.br")
+
 conexao <- dbConnect(
   bigquery(),
   project = "basedosdados",
@@ -42,11 +47,56 @@ conexao <- dbConnect(
   billing = "projeto-334500"
 )
 
-conexao
+#chamando as primeiras 5 linhas da tabela microdados_vinculos
+primeiras_cinco_linhas <- tbl(conexao, "microdados_vinculos") %>% 
+  select(everything()) %>% 
+  head(5) %>% 
+  collect()
+
+#atlahao pipe : ctrl+shift+M
+#antes e atualmente: {magrittr} %>% 
+#atualmente (4.1 ou +) |>
+
+#mostrando as primeiras 5 linhas da tabela chamada
+primeiras_cinco_linhas %>% 
+  kable() %>%
+  kable_styling(bootstrap_options = "striped", 
+                full_width = T, 
+                font_size = 12)
 ```
 
+A base de dados que queremos analisar aqui, é a base de pessoas que (potencialmente) trabalham com ciência de dados. Existe um Código Brasileiro de Ocupações (CBO), que tem o cadastro de todas as ocupações formais no Brasil. Vamos pegar alguns códigos que são relacionados a ciência de dados e filtrar a base da RAIS para obter os dados dessas pessoas.
 
+Pergunta principal de pesquisa:
 
+> Quem trabalha com ciência de dados ganha quanto?
+
+Vamos rodar a base completa
+
+```{r}
+#codigos do CBO considerados para o análise
+codigos_cbo <- c(
+  "252515", "252525", "211110",
+  #pesquisa/cientista
+  "211205", "411035",
+  "211210", "131120", "211215"
+  #ocupações estaísticas
+)
+```
+
+```{r}
+#filtramos a base considerando ano >=2013
+# e considerando os codigos CBO definidos para o estudo
+microdados_tbl <- tbl(conexao, "microdados_vinculos") %>% 
+  select(everything()) %>% 
+  filter(
+    ano >= 2013, 
+    cbo_2002 %in% codigos_cbo
+  )
+
+#falamos para mostar a tabela collect
+tabela_microdados_vinculos <- collect(microdados_tbl)
+```
 
 
 
