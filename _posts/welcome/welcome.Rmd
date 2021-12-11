@@ -1,5 +1,5 @@
 ---
-title: "Welcome to Portfolio Joan"
+title: "Bem-vindo ao Portfolio do Joan"
 description: |
   Welcome to our new blog, Portfolio Joan. We hope you enjoy 
   reading what we have to say!
