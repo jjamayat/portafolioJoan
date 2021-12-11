@@ -15,5 +15,22 @@
     "preview": {},
     "last_modified": "2021-12-11T10:33:24-03:00",
     "input_file": "welcome.knit.md"
+  },
+  {
+    "path": "posts/2021-12-11-anlise-base-rais/",
+    "title": "Análise base RAIS",
+    "description": "Essa análise teve como objetivo analisar os salarios na base da RAIS.",
+    "author": [
+      {
+        "name": "Joan Jesus Amaya",
+        "url": {}
+      }
+    ],
+    "date": "2021-12-11",
+    "categories": [],
+    "contents": "\r\nEsse é meu meu primeiro projeto no porftolio.\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2021-12-11T10:38:38-03:00",
+    "input_file": "anlise-base-rais.knit.md"
   }
 ]

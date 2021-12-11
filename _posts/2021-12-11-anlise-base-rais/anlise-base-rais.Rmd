@@ -1,0 +1,23 @@
+---
+title: "Análise base RAIS"
+description: |
+  Essa análise teve como objetivo analisar os salarios na base da RAIS.
+author:
+  - name: Joan Jesus Amaya
+    url: {}
+date: 2021-12-11
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+#distill::create_post("Análise base RAIS") (cria nova pagina)
+```
+
+Esse é meu meu primeiro projeto no porftolio. 
+
+
