@@ -97,7 +97,47 @@ microdados_tbl <- tbl(conexao, "microdados_vinculos") %>%
 #falamos para mostar a tabela collect
 tabela_microdados_vinculos <- collect(microdados_tbl)
 ```
+# Perguntas de pesquisa
 
+-   Quanto ganha uma pessoa que trabalha com ciência de dados?
+  
+  Perguntas mais especificas
 
+-   Quanto o valor médio varia no tempo?
+  
+  -   Quanto o valor médio varia regionalmente?
+  
+  -   Quanto o valor médio varia por características das pessoas?
+  
+  -   Gênero
+-   Raça/cor
+-   Idade
 
+-   Qual cargo tem a maior taxa de crescimento dentro daquele setor da economia (CNAE) proporcionalmente a municípios com mais pessoas empregadas naquela CDO.
+
+### Como variam os sálarios médios no tempo?
+
+```{r}
+library(ggplot2)
+
+#çeer os dados
+#tabela_microdados_vinculos <- readRDS("tabela_microdados_vinculos.rds")
+
+tabela_medias <- tabela_microdados_vinculos %>% 
+  group_by(ano) %>% 
+  summarise(media_salario=mean(valor_remuneracao_media))
+# kable() %>%
+# kable_styling(bootstrap_options = "striped", 
+#               full_width = T, 
+#               font_size = 12)
+
+ggplot(tabela_medias) +
+  aes(x=ano, y = media_salario)+
+  geom_col(color="blue", fill="blue")+
+  scale_x_continuous(breaks = 2013:2019)+
+  labs(title = " Salario medio por ano",
+       y="Salario medio")+
+  theme_bw()
+
+```
 
