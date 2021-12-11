@@ -60,9 +60,10 @@ primeiras_cinco_linhas <- tbl(conexao, "microdados_vinculos") %>%
 #mostrando as primeiras 5 linhas da tabela chamada
 primeiras_cinco_linhas %>% 
   kable() %>%
-  kable_styling(bootstrap_options = "striped", 
-                full_width = T, 
-                font_size = 12)
+  kable_styling(bootstrap_options = "striped",
+                fixed_thead = T,
+                full_width = F,
+                font_size = 10)
 ```
 
 A base de dados que queremos analisar aqui, é a base de pessoas que (potencialmente) trabalham com ciência de dados. Existe um Código Brasileiro de Ocupações (CBO), que tem o cadastro de todas as ocupações formais no Brasil. Vamos pegar alguns códigos que são relacionados a ciência de dados e filtrar a base da RAIS para obter os dados dessas pessoas.
@@ -99,21 +100,17 @@ tabela_microdados_vinculos <- collect(microdados_tbl)
 ```
 # Perguntas de pesquisa
 
--   Quanto ganha uma pessoa que trabalha com ciência de dados?
+- Quanto ganha uma pessoa que trabalha com ciência de dados?
   
-  Perguntas mais especificas
+Perguntas mais especificas
+- Quanto o valor médio varia no tempo?
+  - Quanto o valor médio varia regionalmente?
+  - Quanto o valor médio varia por características das pessoas?
+  - Gênero
+- Raça/cor
+- Idade
 
--   Quanto o valor médio varia no tempo?
-  
-  -   Quanto o valor médio varia regionalmente?
-  
-  -   Quanto o valor médio varia por características das pessoas?
-  
-  -   Gênero
--   Raça/cor
--   Idade
-
--   Qual cargo tem a maior taxa de crescimento dentro daquele setor da economia (CNAE) proporcionalmente a municípios com mais pessoas empregadas naquela CDO.
+- Qual cargo tem a maior taxa de crescimento dentro daquele setor da economia (CNAE) proporcionalmente a municípios com mais pessoas empregadas naquela CDO.
 
 ### Como variam os sálarios médios no tempo?
 
@@ -141,3 +138,49 @@ ggplot(tabela_medias) +
 
 ```
 
+Agora vamos a ver os números exatos
+
+```{r}
+tabela_medias %>% 
+  kable() %>%
+  kable_styling(bootstrap_options = "striped", 
+                full_width = T, 
+                font_size = 12)
+
+```
+
+
+### Quanto o salário médio varia regionalmente?
+
+```{r}
+tabela_medias_uf <- tabela_microdados_vinculos %>% 
+  group_by(sigla_uf) %>% 
+  summarise(media_salario_uf=mean(valor_remuneracao_media)) %>% 
+  arrange(desc(media_salario_uf))
+
+tabela_medias_uf %>% 
+  ggplot(aes(x=sigla_uf, y=media_salario_uf)) +
+  geom_col(fill="blue")
+
+
+```
+
+Esse gráfico até para colocar na análise explicativa! DF e RJ aparentemente estão muito acima dos demais estados, conform destaca o grafico abaixo.
+
+```{r}
+library(forcats)
+library(plotly)
+#Reordenando os dados
+
+
+ggplotly(
+  tabela_medias_uf %>% 
+    #reoordenando (função fct_reorder())
+    mutate(sigla_uf=fct_reorder(sigla_uf, media_salario_uf)) %>% 
+    ggplot(aes(x=sigla_uf, y=media_salario_uf))+
+    geom_col(fill="blue")+
+    coord_flip()+
+    labs(title = "Salário medio por UFG", x="Unidade da Federação", y="Salario medio")+
+    theme_bw()
+)
+```
