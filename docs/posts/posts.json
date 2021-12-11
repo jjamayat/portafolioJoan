@@ -5,15 +5,15 @@
     "description": "Welcome to our new blog, Portfolio Joan. We hope you enjoy \nreading what we have to say!",
     "author": [
       {
-        "name": "Nora Jones",
-        "url": "https://example.com/norajones"
+        "name": "Joan Jesus Amaya",
+        "url": {}
       }
     ],
     "date": "2021-12-11",
     "categories": [],
     "contents": "\r\n\r\n\r\n\r\n",
     "preview": {},
-    "last_modified": "2021-12-11T10:29:51-03:00",
+    "last_modified": "2021-12-11T10:33:24-03:00",
     "input_file": "welcome.knit.md"
   }
 ]
