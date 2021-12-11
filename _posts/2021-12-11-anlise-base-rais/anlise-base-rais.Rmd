@@ -36,7 +36,7 @@ library(kableExtra)
 
 Abaixo esta o codigo que carrega as primeiras 5 linhas da tabela microdados.
 
-```{r}
+```{r include=FALSE}
 #autenticacao
 #bigrquery::bq_auth("jjamayat@ime.usp.br")
 
