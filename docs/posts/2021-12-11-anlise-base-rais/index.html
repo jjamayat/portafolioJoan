@@ -118,7 +118,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"NULL"}
+  {"type":"character","attributes":{},"value":["anlise-base-rais_files/anchor-4.2.2/anchor.min.js","anlise-base-rais_files/bowser-1.9.3/bowser.min.js","anlise-base-rais_files/distill-2.2.21/template.v2.js","anlise-base-rais_files/header-attrs-2.11/header-attrs.js","anlise-base-rais_files/jquery-3.6.0/jquery-3.6.0.js","anlise-base-rais_files/jquery-3.6.0/jquery-3.6.0.min.js","anlise-base-rais_files/jquery-3.6.0/jquery-3.6.0.min.map","anlise-base-rais_files/popper-2.6.0/popper.min.js","anlise-base-rais_files/tippy-6.2.7/tippy-bundle.umd.min.js","anlise-base-rais_files/tippy-6.2.7/tippy-light-border.css","anlise-base-rais_files/tippy-6.2.7/tippy.css","anlise-base-rais_files/tippy-6.2.7/tippy.umd.min.js","anlise-base-rais_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2102,8 +2102,21 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 
 <div class="d-article">
-<p>Esse é meu meu primeiro projeto no porftolio.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>Nesse ralatorio estamos interesados em responder a pergunta:</p>
+<p>“Quanto ganha um cientista de dados?”</p>
+<p>Para isso vamos utilizar a base da RAIS anonimizada</p>
+<h1 id="acessando-os-dados-da-rais">Acessando os dados da RAIS</h1>
+<p>Vamos utilizar <a href="https://basedosdados.org">o datalake da iniciativa base dos dados</a>.</p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<p>Abaixo esta o codigo que carrega as primeiras 5 linhas da tabela microdados.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>&lt;BigQueryConnection&gt;
+  Dataset: basedosdados.br_me_rais
+  Billing: projeto-334500</code></pre>
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

@@ -11,13 +11,43 @@ output:
     self_contained: false
 ---
 
-
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 #distill::create_post("Análise base RAIS") (cria nova pagina)
 ```
 
-Esse é meu meu primeiro projeto no porftolio. 
+Nesse ralatorio estamos interesados em responder a pergunta:
+
+"Quanto ganha um cientista de dados?"
+
+Para isso vamos utilizar a base da RAIS anonimizada
+
+# Acessando os dados da RAIS
+
+Vamos utilizar [o datalake da iniciativa base dos dados](https://basedosdados.org). 
+
+```{r message=FALSE, warning=FALSE}
+library(bigrquery)
+library(dplyr)
+
+```
+
+Abaixo esta o codigo que carrega as primeiras 5 linhas da tabela microdados.
+
+```{r}
+conexao <- dbConnect(
+  bigquery(),
+  project = "basedosdados",
+  dataset = "br_me_rais",
+  billing = "projeto-334500"
+)
+
+conexao
+```
+
+
+
+
+
 
 
